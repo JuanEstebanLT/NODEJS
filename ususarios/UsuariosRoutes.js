@@ -8,8 +8,25 @@ const usuarios = [
 ];
 
 // GET - Obtener todos los usuarios
-router.get('/usuarios', (req, res) => {
+  router.get('/usuarios', (req, res) => {
   res.json({ success: true, data: usuarios });
+
+  const apiKey = req.headers['password'];
+
+    if (!apiKey) {
+        return res.status(401).json({
+        success: false,
+        message: 'API key es requerida'
+        });
+    }
+
+    // Si la apiKey es incorrecta
+    if (apiKey !== 'Hola Mundo') {
+        return res.status(401).json({
+        success: false,
+        message: 'API key es requerida'
+        });
+    }
 });
 
 // GET - Obtener un usuario por ID
